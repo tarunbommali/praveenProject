@@ -16,7 +16,7 @@ const RestaurantCard = (props) => {
   } = info;
   return (
     <Link
-      to={id}
+      to={`/restaurant/${id}`}
       className=" m-4 p-4 w-[260px] text-wrap bg-white rounded-lg hover:bg-gray-400 "
     >
       <img

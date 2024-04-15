@@ -142,7 +142,7 @@
       this[globalName] = mainExports;
     }
   }
-})({"hPIHA":[function(require,module,exports) {
+})({"gpvlO":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
@@ -34261,7 +34261,7 @@ const RestaurantCard = (props)=>{
     const { info } = restaurant;
     const { id, cloudinaryImageId, name, avgRating, sla, locality, cuisines, costForTwo } = info;
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
-        to: id,
+        to: `/restaurant/${id}`,
         className: " m-4 p-4 w-[260px] text-wrap bg-white rounded-lg hover:bg-gray-400 ",
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
@@ -70705,45 +70705,117 @@ try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _fontawesome = require("fontawesome");
 var _react = require("react");
 var _reactRouterDom = require("react-router-dom");
+var _shimmer = require("./Shimmer");
+var _shimmerDefault = parcelHelpers.interopDefault(_shimmer);
 var _s = $RefreshSig$();
-const RestaurantsInfo = ()=>{
+const RestaurantsInfo = (props)=>{
     _s();
-    const [resInfo, setresInfo] = (0, _react.useState)(null);
+    const [resInfo, setResInfo] = (0, _react.useState)(null);
+    const { resId } = (0, _reactRouterDom.useParams)();
     (0, _react.useEffect)(()=>{
         fetchData();
     }, []);
     const fetchData = async ()=>{
-        const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=17.37240&lng=78.43780&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
-        const json = await data.json();
-        setresInfo(json.data);
+        try {
+            const data = await fetch("https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=17.406498&lng=78.47724389999999&restaurantId=" + resId + "&catalog_qa=undefined&submitAction=ENTER");
+            const json = await data.json();
+            console.log("Response from API:", json);
+            setResInfo(json.data);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
     };
-    console.log((0, _reactRouterDom.json).data.cards[1].card.card.gridElements.infoWithStyle.restaurants, info);
+    if (!resInfo) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _shimmerDefault.default), {}, void 0, false, {
+            fileName: "src/RestaurantsInfo.js",
+            lineNumber: 28,
+            columnNumber: 21
+        }, undefined)
+    }, void 0, false, {
+        fileName: "src/RestaurantsInfo.js",
+        lineNumber: 28,
+        columnNumber: 16
+    }, undefined);
+    const { name, cuisines, costForTwo, avgRating, slaString } = resInfo?.cards[2]?.card?.card?.info;
+    const { itemCards } = resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
                 children: "Praveen"
             }, void 0, false, {
                 fileName: "src/RestaurantsInfo.js",
-                lineNumber: 24,
+                lineNumber: 37,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
-                children: "praveen"
+                children: [
+                    name,
+                    " - ",
+                    avgRating
+                ]
+            }, void 0, true, {
+                fileName: "src/RestaurantsInfo.js",
+                lineNumber: 38,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: [
+                    cuisines.join(","),
+                    " - ",
+                    costForTwo
+                ]
+            }, void 0, true, {
+                fileName: "src/RestaurantsInfo.js",
+                lineNumber: 39,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                children: slaString
             }, void 0, false, {
                 fileName: "src/RestaurantsInfo.js",
-                lineNumber: 25,
+                lineNumber: 40,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                children: "Menu"
+            }, void 0, false, {
+                fileName: "src/RestaurantsInfo.js",
+                lineNumber: 41,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
+                children: itemCards.map((item)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                        children: [
+                            item.card.info.name,
+                            " - ",
+                            "RS.",
+                            item.card.info.price
+                        ]
+                    }, item.card.info.id, true, {
+                        fileName: "src/RestaurantsInfo.js",
+                        lineNumber: 43,
+                        columnNumber: 40
+                    }, undefined))
+            }, void 0, false, {
+                fileName: "src/RestaurantsInfo.js",
+                lineNumber: 42,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/RestaurantsInfo.js",
-        lineNumber: 23,
+        lineNumber: 36,
         columnNumber: 9
     }, undefined);
 };
-_s(RestaurantsInfo, "o1ZJXY7SToMRwsX7rxnhRuv+VcQ=");
+_s(RestaurantsInfo, "Di9ZLy8XXUjRliClMcx4U9YqD/w=", false, function() {
+    return [
+        (0, _reactRouterDom.useParams)
+    ];
+});
 _c = RestaurantsInfo;
 exports.default = RestaurantsInfo;
 var _c;
@@ -70754,6 +70826,2508 @@ $RefreshReg$(_c, "RestaurantsInfo");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-router-dom":"9xmpe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}]},["hPIHA","1xC6H","igcvL"], "igcvL", "parcelRequire6ef2")
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-router-dom":"9xmpe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","fontawesome":"gUnxB","./Shimmer":"iSNg0"}],"gUnxB":[function(require,module,exports) {
+/* Unicode mappings for FontAwesome Pro v5.6.3 */ var fa = function(i) {
+    return fa[i.replace(/-./g, function(x) {
+        return x.substr(1).toUpperCase();
+    })];
+};
+fa["500px"] = "\uF26E";
+fa.abacus = "\uF640";
+fa.accessibleIcon = "\uF368";
+fa.accusoft = "\uF369";
+fa.acorn = "\uF6AE";
+fa.acquisitionsIncorporated = "\uF6AF";
+fa.ad = "\uF641";
+fa.addressBook = "\uF2B9";
+fa.addressCard = "\uF2BB";
+fa.adjust = "\uF042";
+fa.adn = "\uF170";
+fa.adobe = "\uF778";
+fa.adversal = "\uF36A";
+fa.affiliatetheme = "\uF36B";
+fa.airFreshener = "\uF5D0";
+fa.alarmClock = "\uF34E";
+fa.algolia = "\uF36C";
+fa.alicorn = "\uF6B0";
+fa.alignCenter = "\uF037";
+fa.alignJustify = "\uF039";
+fa.alignLeft = "\uF036";
+fa.alignRight = "\uF038";
+fa.alipay = "\uF642";
+fa.allergies = "\uF461";
+fa.amazon = "\uF270";
+fa.amazonPay = "\uF42C";
+fa.ambulance = "\uF0F9";
+fa.americanSignLanguageInterpreting = "\uF2A3";
+fa.amilia = "\uF36D";
+fa.analytics = "\uF643";
+fa.anchor = "\uF13D";
+fa.android = "\uF17B";
+fa.angel = "\uF779";
+fa.angellist = "\uF209";
+fa.angleDoubleDown = "\uF103";
+fa.angleDoubleLeft = "\uF100";
+fa.angleDoubleRight = "\uF101";
+fa.angleDoubleUp = "\uF102";
+fa.angleDown = "\uF107";
+fa.angleLeft = "\uF104";
+fa.angleRight = "\uF105";
+fa.angleUp = "\uF106";
+fa.angry = "\uF556";
+fa.angrycreative = "\uF36E";
+fa.angular = "\uF420";
+fa.ankh = "\uF644";
+fa.appStore = "\uF36F";
+fa.appStoreIos = "\uF370";
+fa.apper = "\uF371";
+fa.apple = "\uF179";
+fa.appleAlt = "\uF5D1";
+fa.appleCrate = "\uF6B1";
+fa.applePay = "\uF415";
+fa.archive = "\uF187";
+fa.archway = "\uF557";
+fa.arrowAltCircleDown = "\uF358";
+fa.arrowAltCircleLeft = "\uF359";
+fa.arrowAltCircleRight = "\uF35A";
+fa.arrowAltCircleUp = "\uF35B";
+fa.arrowAltDown = "\uF354";
+fa.arrowAltFromBottom = "\uF346";
+fa.arrowAltFromLeft = "\uF347";
+fa.arrowAltFromRight = "\uF348";
+fa.arrowAltFromTop = "\uF349";
+fa.arrowAltLeft = "\uF355";
+fa.arrowAltRight = "\uF356";
+fa.arrowAltSquareDown = "\uF350";
+fa.arrowAltSquareLeft = "\uF351";
+fa.arrowAltSquareRight = "\uF352";
+fa.arrowAltSquareUp = "\uF353";
+fa.arrowAltToBottom = "\uF34A";
+fa.arrowAltToLeft = "\uF34B";
+fa.arrowAltToRight = "\uF34C";
+fa.arrowAltToTop = "\uF34D";
+fa.arrowAltUp = "\uF357";
+fa.arrowCircleDown = "\uF0AB";
+fa.arrowCircleLeft = "\uF0A8";
+fa.arrowCircleRight = "\uF0A9";
+fa.arrowCircleUp = "\uF0AA";
+fa.arrowDown = "\uF063";
+fa.arrowFromBottom = "\uF342";
+fa.arrowFromLeft = "\uF343";
+fa.arrowFromRight = "\uF344";
+fa.arrowFromTop = "\uF345";
+fa.arrowLeft = "\uF060";
+fa.arrowRight = "\uF061";
+fa.arrowSquareDown = "\uF339";
+fa.arrowSquareLeft = "\uF33A";
+fa.arrowSquareRight = "\uF33B";
+fa.arrowSquareUp = "\uF33C";
+fa.arrowToBottom = "\uF33D";
+fa.arrowToLeft = "\uF33E";
+fa.arrowToRight = "\uF340";
+fa.arrowToTop = "\uF341";
+fa.arrowUp = "\uF062";
+fa.arrows = "\uF047";
+fa.arrowsAlt = "\uF0B2";
+fa.arrowsAltH = "\uF337";
+fa.arrowsAltV = "\uF338";
+fa.arrowsH = "\uF07E";
+fa.arrowsV = "\uF07D";
+fa.artstation = "\uF77A";
+fa.assistiveListeningSystems = "\uF2A2";
+fa.asterisk = "\uF069";
+fa.asymmetrik = "\uF372";
+fa.at = "\uF1FA";
+fa.atlas = "\uF558";
+fa.atlassian = "\uF77B";
+fa.atom = "\uF5D2";
+fa.atomAlt = "\uF5D3";
+fa.audible = "\uF373";
+fa.audioDescription = "\uF29E";
+fa.autoprefixer = "\uF41C";
+fa.avianex = "\uF374";
+fa.aviato = "\uF421";
+fa.award = "\uF559";
+fa.aws = "\uF375";
+fa.axe = "\uF6B2";
+fa.axeBattle = "\uF6B3";
+fa.baby = "\uF77C";
+fa.babyCarriage = "\uF77D";
+fa.backpack = "\uF5D4";
+fa.backspace = "\uF55A";
+fa.backward = "\uF04A";
+fa.badge = "\uF335";
+fa.badgeCheck = "\uF336";
+fa.badgeDollar = "\uF645";
+fa.badgePercent = "\uF646";
+fa.badgerHoney = "\uF6B4";
+fa.balanceScale = "\uF24E";
+fa.balanceScaleLeft = "\uF515";
+fa.balanceScaleRight = "\uF516";
+fa.ballPile = "\uF77E";
+fa.ballot = "\uF732";
+fa.ballotCheck = "\uF733";
+fa.ban = "\uF05E";
+fa.bandAid = "\uF462";
+fa.bandcamp = "\uF2D5";
+fa.barcode = "\uF02A";
+fa.barcodeAlt = "\uF463";
+fa.barcodeRead = "\uF464";
+fa.barcodeScan = "\uF465";
+fa.bars = "\uF0C9";
+fa.baseball = "\uF432";
+fa.baseballBall = "\uF433";
+fa.basketballBall = "\uF434";
+fa.basketballHoop = "\uF435";
+fa.bat = "\uF6B5";
+fa.bath = "\uF2CD";
+fa.batteryBolt = "\uF376";
+fa.batteryEmpty = "\uF244";
+fa.batteryFull = "\uF240";
+fa.batteryHalf = "\uF242";
+fa.batteryQuarter = "\uF243";
+fa.batterySlash = "\uF377";
+fa.batteryThreeQuarters = "\uF241";
+fa.bed = "\uF236";
+fa.beer = "\uF0FC";
+fa.behance = "\uF1B4";
+fa.behanceSquare = "\uF1B5";
+fa.bell = "\uF0F3";
+fa.bellSchool = "\uF5D5";
+fa.bellSchoolSlash = "\uF5D6";
+fa.bellSlash = "\uF1F6";
+fa.bells = "\uF77F";
+fa.bezierCurve = "\uF55B";
+fa.bible = "\uF647";
+fa.bicycle = "\uF206";
+fa.bimobject = "\uF378";
+fa.binoculars = "\uF1E5";
+fa.biohazard = "\uF780";
+fa.birthdayCake = "\uF1FD";
+fa.bitbucket = "\uF171";
+fa.bitcoin = "\uF379";
+fa.bity = "\uF37A";
+fa.blackTie = "\uF27E";
+fa.blackberry = "\uF37B";
+fa.blanket = "\uF498";
+fa.blender = "\uF517";
+fa.blenderPhone = "\uF6B6";
+fa.blind = "\uF29D";
+fa.blog = "\uF781";
+fa.blogger = "\uF37C";
+fa.bloggerB = "\uF37D";
+fa.bluetooth = "\uF293";
+fa.bluetoothB = "\uF294";
+fa.bold = "\uF032";
+fa.bolt = "\uF0E7";
+fa.bomb = "\uF1E2";
+fa.bone = "\uF5D7";
+fa.boneBreak = "\uF5D8";
+fa.bong = "\uF55C";
+fa.book = "\uF02D";
+fa.bookAlt = "\uF5D9";
+fa.bookDead = "\uF6B7";
+fa.bookHeart = "\uF499";
+fa.bookOpen = "\uF518";
+fa.bookReader = "\uF5DA";
+fa.bookSpells = "\uF6B8";
+fa.bookmark = "\uF02E";
+fa.books = "\uF5DB";
+fa.boot = "\uF782";
+fa.boothCurtain = "\uF734";
+fa.bowArrow = "\uF6B9";
+fa.bowlingBall = "\uF436";
+fa.bowlingPins = "\uF437";
+fa.box = "\uF466";
+fa.boxAlt = "\uF49A";
+fa.boxBallot = "\uF735";
+fa.boxCheck = "\uF467";
+fa.boxFragile = "\uF49B";
+fa.boxFull = "\uF49C";
+fa.boxHeart = "\uF49D";
+fa.boxOpen = "\uF49E";
+fa.boxUp = "\uF49F";
+fa.boxUsd = "\uF4A0";
+fa.boxes = "\uF468";
+fa.boxesAlt = "\uF4A1";
+fa.boxingGlove = "\uF438";
+fa.braille = "\uF2A1";
+fa.brain = "\uF5DC";
+fa.briefcase = "\uF0B1";
+fa.briefcaseMedical = "\uF469";
+fa.broadcastTower = "\uF519";
+fa.broom = "\uF51A";
+fa.browser = "\uF37E";
+fa.brush = "\uF55D";
+fa.btc = "\uF15A";
+fa.bug = "\uF188";
+fa.building = "\uF1AD";
+fa.bullhorn = "\uF0A1";
+fa.bullseye = "\uF140";
+fa.bullseyeArrow = "\uF648";
+fa.bullseyePointer = "\uF649";
+fa.burn = "\uF46A";
+fa.buromobelexperte = "\uF37F";
+fa.bus = "\uF207";
+fa.busAlt = "\uF55E";
+fa.busSchool = "\uF5DD";
+fa.businessTime = "\uF64A";
+fa.buysellads = "\uF20D";
+fa.cabinetFiling = "\uF64B";
+fa.calculator = "\uF1EC";
+fa.calculatorAlt = "\uF64C";
+fa.calendar = "\uF133";
+fa.calendarAlt = "\uF073";
+fa.calendarCheck = "\uF274";
+fa.calendarDay = "\uF783";
+fa.calendarEdit = "\uF333";
+fa.calendarExclamation = "\uF334";
+fa.calendarMinus = "\uF272";
+fa.calendarPlus = "\uF271";
+fa.calendarStar = "\uF736";
+fa.calendarTimes = "\uF273";
+fa.calendarWeek = "\uF784";
+fa.camera = "\uF030";
+fa.cameraAlt = "\uF332";
+fa.cameraRetro = "\uF083";
+fa.campfire = "\uF6BA";
+fa.campground = "\uF6BB";
+fa.canadianMapleLeaf = "\uF785";
+fa.candleHolder = "\uF6BC";
+fa.candyCane = "\uF786";
+fa.candyCorn = "\uF6BD";
+fa.cannabis = "\uF55F";
+fa.capsules = "\uF46B";
+fa.car = "\uF1B9";
+fa.carAlt = "\uF5DE";
+fa.carBattery = "\uF5DF";
+fa.carBump = "\uF5E0";
+fa.carCrash = "\uF5E1";
+fa.carGarage = "\uF5E2";
+fa.carMechanic = "\uF5E3";
+fa.carSide = "\uF5E4";
+fa.carTilt = "\uF5E5";
+fa.carWash = "\uF5E6";
+fa.caretCircleDown = "\uF32D";
+fa.caretCircleLeft = "\uF32E";
+fa.caretCircleRight = "\uF330";
+fa.caretCircleUp = "\uF331";
+fa.caretDown = "\uF0D7";
+fa.caretLeft = "\uF0D9";
+fa.caretRight = "\uF0DA";
+fa.caretSquareDown = "\uF150";
+fa.caretSquareLeft = "\uF191";
+fa.caretSquareRight = "\uF152";
+fa.caretSquareUp = "\uF151";
+fa.caretUp = "\uF0D8";
+fa.carrot = "\uF787";
+fa.cartArrowDown = "\uF218";
+fa.cartPlus = "\uF217";
+fa.cashRegister = "\uF788";
+fa.cat = "\uF6BE";
+fa.cauldron = "\uF6BF";
+fa.ccAmazonPay = "\uF42D";
+fa.ccAmex = "\uF1F3";
+fa.ccApplePay = "\uF416";
+fa.ccDinersClub = "\uF24C";
+fa.ccDiscover = "\uF1F2";
+fa.ccJcb = "\uF24B";
+fa.ccMastercard = "\uF1F1";
+fa.ccPaypal = "\uF1F4";
+fa.ccStripe = "\uF1F5";
+fa.ccVisa = "\uF1F0";
+fa.centercode = "\uF380";
+fa.centos = "\uF789";
+fa.certificate = "\uF0A3";
+fa.chair = "\uF6C0";
+fa.chairOffice = "\uF6C1";
+fa.chalkboard = "\uF51B";
+fa.chalkboardTeacher = "\uF51C";
+fa.chargingStation = "\uF5E7";
+fa.chartArea = "\uF1FE";
+fa.chartBar = "\uF080";
+fa.chartLine = "\uF201";
+fa.chartLineDown = "\uF64D";
+fa.chartNetwork = "\uF78A";
+fa.chartPie = "\uF200";
+fa.chartPieAlt = "\uF64E";
+fa.check = "\uF00C";
+fa.checkCircle = "\uF058";
+fa.checkDouble = "\uF560";
+fa.checkSquare = "\uF14A";
+fa.chess = "\uF439";
+fa.chessBishop = "\uF43A";
+fa.chessBishopAlt = "\uF43B";
+fa.chessBoard = "\uF43C";
+fa.chessClock = "\uF43D";
+fa.chessClockAlt = "\uF43E";
+fa.chessKing = "\uF43F";
+fa.chessKingAlt = "\uF440";
+fa.chessKnight = "\uF441";
+fa.chessKnightAlt = "\uF442";
+fa.chessPawn = "\uF443";
+fa.chessPawnAlt = "\uF444";
+fa.chessQueen = "\uF445";
+fa.chessQueenAlt = "\uF446";
+fa.chessRook = "\uF447";
+fa.chessRookAlt = "\uF448";
+fa.chevronCircleDown = "\uF13A";
+fa.chevronCircleLeft = "\uF137";
+fa.chevronCircleRight = "\uF138";
+fa.chevronCircleUp = "\uF139";
+fa.chevronDoubleDown = "\uF322";
+fa.chevronDoubleLeft = "\uF323";
+fa.chevronDoubleRight = "\uF324";
+fa.chevronDoubleUp = "\uF325";
+fa.chevronDown = "\uF078";
+fa.chevronLeft = "\uF053";
+fa.chevronRight = "\uF054";
+fa.chevronSquareDown = "\uF329";
+fa.chevronSquareLeft = "\uF32A";
+fa.chevronSquareRight = "\uF32B";
+fa.chevronSquareUp = "\uF32C";
+fa.chevronUp = "\uF077";
+fa.child = "\uF1AE";
+fa.chimney = "\uF78B";
+fa.chrome = "\uF268";
+fa.church = "\uF51D";
+fa.circle = "\uF111";
+fa.circleNotch = "\uF1CE";
+fa.city = "\uF64F";
+fa.clawMarks = "\uF6C2";
+fa.clipboard = "\uF328";
+fa.clipboardCheck = "\uF46C";
+fa.clipboardList = "\uF46D";
+fa.clipboardListCheck = "\uF737";
+fa.clipboardPrescription = "\uF5E8";
+fa.clock = "\uF017";
+fa.clone = "\uF24D";
+fa.closedCaptioning = "\uF20A";
+fa.cloud = "\uF0C2";
+fa.cloudDownload = "\uF0ED";
+fa.cloudDownloadAlt = "\uF381";
+fa.cloudDrizzle = "\uF738";
+fa.cloudHail = "\uF739";
+fa.cloudHailMixed = "\uF73A";
+fa.cloudMeatball = "\uF73B";
+fa.cloudMoon = "\uF6C3";
+fa.cloudMoonRain = "\uF73C";
+fa.cloudRain = "\uF73D";
+fa.cloudRainbow = "\uF73E";
+fa.cloudShowers = "\uF73F";
+fa.cloudShowersHeavy = "\uF740";
+fa.cloudSleet = "\uF741";
+fa.cloudSnow = "\uF742";
+fa.cloudSun = "\uF6C4";
+fa.cloudSunRain = "\uF743";
+fa.cloudUpload = "\uF0EE";
+fa.cloudUploadAlt = "\uF382";
+fa.clouds = "\uF744";
+fa.cloudsMoon = "\uF745";
+fa.cloudsSun = "\uF746";
+fa.cloudscale = "\uF383";
+fa.cloudsmith = "\uF384";
+fa.cloudversify = "\uF385";
+fa.club = "\uF327";
+fa.cocktail = "\uF561";
+fa.code = "\uF121";
+fa.codeBranch = "\uF126";
+fa.codeCommit = "\uF386";
+fa.codeMerge = "\uF387";
+fa.codepen = "\uF1CB";
+fa.codiepie = "\uF284";
+fa.coffee = "\uF0F4";
+fa.coffeeTogo = "\uF6C5";
+fa.coffin = "\uF6C6";
+fa.cog = "\uF013";
+fa.cogs = "\uF085";
+fa.coins = "\uF51E";
+fa.columns = "\uF0DB";
+fa.comment = "\uF075";
+fa.commentAlt = "\uF27A";
+fa.commentAltCheck = "\uF4A2";
+fa.commentAltDollar = "\uF650";
+fa.commentAltDots = "\uF4A3";
+fa.commentAltEdit = "\uF4A4";
+fa.commentAltExclamation = "\uF4A5";
+fa.commentAltLines = "\uF4A6";
+fa.commentAltMinus = "\uF4A7";
+fa.commentAltPlus = "\uF4A8";
+fa.commentAltSlash = "\uF4A9";
+fa.commentAltSmile = "\uF4AA";
+fa.commentAltTimes = "\uF4AB";
+fa.commentCheck = "\uF4AC";
+fa.commentDollar = "\uF651";
+fa.commentDots = "\uF4AD";
+fa.commentEdit = "\uF4AE";
+fa.commentExclamation = "\uF4AF";
+fa.commentLines = "\uF4B0";
+fa.commentMinus = "\uF4B1";
+fa.commentPlus = "\uF4B2";
+fa.commentSlash = "\uF4B3";
+fa.commentSmile = "\uF4B4";
+fa.commentTimes = "\uF4B5";
+fa.comments = "\uF086";
+fa.commentsAlt = "\uF4B6";
+fa.commentsAltDollar = "\uF652";
+fa.commentsDollar = "\uF653";
+fa.compactDisc = "\uF51F";
+fa.compass = "\uF14E";
+fa.compassSlash = "\uF5E9";
+fa.compress = "\uF066";
+fa.compressAlt = "\uF422";
+fa.compressArrowsAlt = "\uF78C";
+fa.compressWide = "\uF326";
+fa.conciergeBell = "\uF562";
+fa.confluence = "\uF78D";
+fa.connectdevelop = "\uF20E";
+fa.containerStorage = "\uF4B7";
+fa.contao = "\uF26D";
+fa.conveyorBelt = "\uF46E";
+fa.conveyorBeltAlt = "\uF46F";
+fa.cookie = "\uF563";
+fa.cookieBite = "\uF564";
+fa.copy = "\uF0C5";
+fa.copyright = "\uF1F9";
+fa.corn = "\uF6C7";
+fa.couch = "\uF4B8";
+fa.cow = "\uF6C8";
+fa.cpanel = "\uF388";
+fa.creativeCommons = "\uF25E";
+fa.creativeCommonsBy = "\uF4E7";
+fa.creativeCommonsNc = "\uF4E8";
+fa.creativeCommonsNcEu = "\uF4E9";
+fa.creativeCommonsNcJp = "\uF4EA";
+fa.creativeCommonsNd = "\uF4EB";
+fa.creativeCommonsPd = "\uF4EC";
+fa.creativeCommonsPdAlt = "\uF4ED";
+fa.creativeCommonsRemix = "\uF4EE";
+fa.creativeCommonsSa = "\uF4EF";
+fa.creativeCommonsSampling = "\uF4F0";
+fa.creativeCommonsSamplingPlus = "\uF4F1";
+fa.creativeCommonsShare = "\uF4F2";
+fa.creativeCommonsZero = "\uF4F3";
+fa.creditCard = "\uF09D";
+fa.creditCardBlank = "\uF389";
+fa.creditCardFront = "\uF38A";
+fa.cricket = "\uF449";
+fa.criticalRole = "\uF6C9";
+fa.crop = "\uF125";
+fa.cropAlt = "\uF565";
+fa.cross = "\uF654";
+fa.crosshairs = "\uF05B";
+fa.crow = "\uF520";
+fa.crown = "\uF521";
+fa.css3 = "\uF13C";
+fa.css3Alt = "\uF38B";
+fa.cube = "\uF1B2";
+fa.cubes = "\uF1B3";
+fa.curling = "\uF44A";
+fa.cut = "\uF0C4";
+fa.cuttlefish = "\uF38C";
+fa.dAndD = "\uF38D";
+fa.dAndDBeyond = "\uF6CA";
+fa.dagger = "\uF6CB";
+fa.dashcube = "\uF210";
+fa.database = "\uF1C0";
+fa.deaf = "\uF2A4";
+fa.deer = "\uF78E";
+fa.deerRudolph = "\uF78F";
+fa.delicious = "\uF1A5";
+fa.democrat = "\uF747";
+fa.deploydog = "\uF38E";
+fa.deskpro = "\uF38F";
+fa.desktop = "\uF108";
+fa.desktopAlt = "\uF390";
+fa.dev = "\uF6CC";
+fa.deviantart = "\uF1BD";
+fa.dewpoint = "\uF748";
+fa.dharmachakra = "\uF655";
+fa.dhl = "\uF790";
+fa.diagnoses = "\uF470";
+fa.diamond = "\uF219";
+fa.diaspora = "\uF791";
+fa.dice = "\uF522";
+fa.diceD10 = "\uF6CD";
+fa.diceD12 = "\uF6CE";
+fa.diceD20 = "\uF6CF";
+fa.diceD4 = "\uF6D0";
+fa.diceD6 = "\uF6D1";
+fa.diceD8 = "\uF6D2";
+fa.diceFive = "\uF523";
+fa.diceFour = "\uF524";
+fa.diceOne = "\uF525";
+fa.diceSix = "\uF526";
+fa.diceThree = "\uF527";
+fa.diceTwo = "\uF528";
+fa.digg = "\uF1A6";
+fa.digitalOcean = "\uF391";
+fa.digitalTachograph = "\uF566";
+fa.diploma = "\uF5EA";
+fa.directions = "\uF5EB";
+fa.discord = "\uF392";
+fa.discourse = "\uF393";
+fa.divide = "\uF529";
+fa.dizzy = "\uF567";
+fa.dna = "\uF471";
+fa.doNotEnter = "\uF5EC";
+fa.dochub = "\uF394";
+fa.docker = "\uF395";
+fa.dog = "\uF6D3";
+fa.dogLeashed = "\uF6D4";
+fa.dollarSign = "\uF155";
+fa.dolly = "\uF472";
+fa.dollyEmpty = "\uF473";
+fa.dollyFlatbed = "\uF474";
+fa.dollyFlatbedAlt = "\uF475";
+fa.dollyFlatbedEmpty = "\uF476";
+fa.donate = "\uF4B9";
+fa.doorClosed = "\uF52A";
+fa.doorOpen = "\uF52B";
+fa.dotCircle = "\uF192";
+fa.dove = "\uF4BA";
+fa.download = "\uF019";
+fa.draft2digital = "\uF396";
+fa.draftingCompass = "\uF568";
+fa.dragon = "\uF6D5";
+fa.drawCircle = "\uF5ED";
+fa.drawPolygon = "\uF5EE";
+fa.drawSquare = "\uF5EF";
+fa.dreidel = "\uF792";
+fa.dribbble = "\uF17D";
+fa.dribbbleSquare = "\uF397";
+fa.dropbox = "\uF16B";
+fa.drum = "\uF569";
+fa.drumSteelpan = "\uF56A";
+fa.drumstick = "\uF6D6";
+fa.drumstickBite = "\uF6D7";
+fa.drupal = "\uF1A9";
+fa.duck = "\uF6D8";
+fa.dumbbell = "\uF44B";
+fa.dumpster = "\uF793";
+fa.dumpsterFire = "\uF794";
+fa.dungeon = "\uF6D9";
+fa.dyalog = "\uF399";
+fa.ear = "\uF5F0";
+fa.earMuffs = "\uF795";
+fa.earlybirds = "\uF39A";
+fa.ebay = "\uF4F4";
+fa.eclipse = "\uF749";
+fa.eclipseAlt = "\uF74A";
+fa.edge = "\uF282";
+fa.edit = "\uF044";
+fa.eject = "\uF052";
+fa.elementor = "\uF430";
+fa.elephant = "\uF6DA";
+fa.ellipsisH = "\uF141";
+fa.ellipsisHAlt = "\uF39B";
+fa.ellipsisV = "\uF142";
+fa.ellipsisVAlt = "\uF39C";
+fa.ello = "\uF5F1";
+fa.ember = "\uF423";
+fa.empire = "\uF1D1";
+fa.emptySet = "\uF656";
+fa.engineWarning = "\uF5F2";
+fa.envelope = "\uF0E0";
+fa.envelopeOpen = "\uF2B6";
+fa.envelopeOpenDollar = "\uF657";
+fa.envelopeOpenText = "\uF658";
+fa.envelopeSquare = "\uF199";
+fa.envira = "\uF299";
+fa.equals = "\uF52C";
+fa.eraser = "\uF12D";
+fa.erlang = "\uF39D";
+fa.ethereum = "\uF42E";
+fa.ethernet = "\uF796";
+fa.etsy = "\uF2D7";
+fa.euroSign = "\uF153";
+fa.exchange = "\uF0EC";
+fa.exchangeAlt = "\uF362";
+fa.exclamation = "\uF12A";
+fa.exclamationCircle = "\uF06A";
+fa.exclamationSquare = "\uF321";
+fa.exclamationTriangle = "\uF071";
+fa.expand = "\uF065";
+fa.expandAlt = "\uF424";
+fa.expandArrows = "\uF31D";
+fa.expandArrowsAlt = "\uF31E";
+fa.expandWide = "\uF320";
+fa.expeditedssl = "\uF23E";
+fa.externalLink = "\uF08E";
+fa.externalLinkAlt = "\uF35D";
+fa.externalLinkSquare = "\uF14C";
+fa.externalLinkSquareAlt = "\uF360";
+fa.eye = "\uF06E";
+fa.eyeDropper = "\uF1FB";
+fa.eyeEvil = "\uF6DB";
+fa.eyeSlash = "\uF070";
+fa.facebook = "\uF09A";
+fa.facebookF = "\uF39E";
+fa.facebookMessenger = "\uF39F";
+fa.facebookSquare = "\uF082";
+fa.fantasyFlightGames = "\uF6DC";
+fa.fastBackward = "\uF049";
+fa.fastForward = "\uF050";
+fa.fax = "\uF1AC";
+fa.feather = "\uF52D";
+fa.featherAlt = "\uF56B";
+fa.fedex = "\uF797";
+fa.fedora = "\uF798";
+fa.female = "\uF182";
+fa.fieldHockey = "\uF44C";
+fa.fighterJet = "\uF0FB";
+fa.figma = "\uF799";
+fa.file = "\uF15B";
+fa.fileAlt = "\uF15C";
+fa.fileArchive = "\uF1C6";
+fa.fileAudio = "\uF1C7";
+fa.fileCertificate = "\uF5F3";
+fa.fileChartLine = "\uF659";
+fa.fileChartPie = "\uF65A";
+fa.fileCheck = "\uF316";
+fa.fileCode = "\uF1C9";
+fa.fileContract = "\uF56C";
+fa.fileCsv = "\uF6DD";
+fa.fileDownload = "\uF56D";
+fa.fileEdit = "\uF31C";
+fa.fileExcel = "\uF1C3";
+fa.fileExclamation = "\uF31A";
+fa.fileExport = "\uF56E";
+fa.fileImage = "\uF1C5";
+fa.fileImport = "\uF56F";
+fa.fileInvoice = "\uF570";
+fa.fileInvoiceDollar = "\uF571";
+fa.fileMedical = "\uF477";
+fa.fileMedicalAlt = "\uF478";
+fa.fileMinus = "\uF318";
+fa.filePdf = "\uF1C1";
+fa.filePlus = "\uF319";
+fa.filePowerpoint = "\uF1C4";
+fa.filePrescription = "\uF572";
+fa.fileSignature = "\uF573";
+fa.fileSpreadsheet = "\uF65B";
+fa.fileTimes = "\uF317";
+fa.fileUpload = "\uF574";
+fa.fileUser = "\uF65C";
+fa.fileVideo = "\uF1C8";
+fa.fileWord = "\uF1C2";
+fa.fill = "\uF575";
+fa.fillDrip = "\uF576";
+fa.film = "\uF008";
+fa.filmAlt = "\uF3A0";
+fa.filter = "\uF0B0";
+fa.fingerprint = "\uF577";
+fa.fire = "\uF06D";
+fa.fireAlt = "\uF7E4";
+fa.fireExtinguisher = "\uF134";
+fa.fireSmoke = "\uF74B";
+fa.firefox = "\uF269";
+fa.fireplace = "\uF79A";
+fa.firstAid = "\uF479";
+fa.firstOrder = "\uF2B0";
+fa.firstOrderAlt = "\uF50A";
+fa.firstdraft = "\uF3A1";
+fa.fish = "\uF578";
+fa.fistRaised = "\uF6DE";
+fa.flag = "\uF024";
+fa.flagAlt = "\uF74C";
+fa.flagCheckered = "\uF11E";
+fa.flagUsa = "\uF74D";
+fa.flame = "\uF6DF";
+fa.flask = "\uF0C3";
+fa.flaskPoison = "\uF6E0";
+fa.flaskPotion = "\uF6E1";
+fa.flickr = "\uF16E";
+fa.flipboard = "\uF44D";
+fa.flushed = "\uF579";
+fa.fly = "\uF417";
+fa.fog = "\uF74E";
+fa.folder = "\uF07B";
+fa.folderMinus = "\uF65D";
+fa.folderOpen = "\uF07C";
+fa.folderPlus = "\uF65E";
+fa.folderTimes = "\uF65F";
+fa.folders = "\uF660";
+fa.font = "\uF031";
+fa.fontAwesome = "\uF2B4";
+fa.fontAwesomeAlt = "\uF35C";
+fa.fontAwesomeFlag = "\uF425";
+fa.fontAwesomeLogoFull = "\uF4E6";
+fa.fonticons = "\uF280";
+fa.fonticonsFi = "\uF3A2";
+fa.footballBall = "\uF44E";
+fa.footballHelmet = "\uF44F";
+fa.forklift = "\uF47A";
+fa.fortAwesome = "\uF286";
+fa.fortAwesomeAlt = "\uF3A3";
+fa.forumbee = "\uF211";
+fa.forward = "\uF04E";
+fa.foursquare = "\uF180";
+fa.fragile = "\uF4BB";
+fa.freeCodeCamp = "\uF2C5";
+fa.freebsd = "\uF3A4";
+fa.frog = "\uF52E";
+fa.frostyHead = "\uF79B";
+fa.frown = "\uF119";
+fa.frownOpen = "\uF57A";
+fa.fulcrum = "\uF50B";
+fa.function = "\uF661";
+fa.funnelDollar = "\uF662";
+fa.futbol = "\uF1E3";
+fa.galacticRepublic = "\uF50C";
+fa.galacticSenate = "\uF50D";
+fa.gamepad = "\uF11B";
+fa.gasPump = "\uF52F";
+fa.gasPumpSlash = "\uF5F4";
+fa.gavel = "\uF0E3";
+fa.gem = "\uF3A5";
+fa.genderless = "\uF22D";
+fa.getPocket = "\uF265";
+fa.gg = "\uF260";
+fa.ggCircle = "\uF261";
+fa.ghost = "\uF6E2";
+fa.gift = "\uF06B";
+fa.giftCard = "\uF663";
+fa.gifts = "\uF79C";
+fa.gingerbreadMan = "\uF79D";
+fa.git = "\uF1D3";
+fa.gitSquare = "\uF1D2";
+fa.github = "\uF09B";
+fa.githubAlt = "\uF113";
+fa.githubSquare = "\uF092";
+fa.gitkraken = "\uF3A6";
+fa.gitlab = "\uF296";
+fa.gitter = "\uF426";
+fa.glassChampagne = "\uF79E";
+fa.glassCheers = "\uF79F";
+fa.glassMartini = "\uF000";
+fa.glassMartiniAlt = "\uF57B";
+fa.glassWhiskey = "\uF7A0";
+fa.glassWhiskeyRocks = "\uF7A1";
+fa.glasses = "\uF530";
+fa.glassesAlt = "\uF5F5";
+fa.glide = "\uF2A5";
+fa.glideG = "\uF2A6";
+fa.globe = "\uF0AC";
+fa.globeAfrica = "\uF57C";
+fa.globeAmericas = "\uF57D";
+fa.globeAsia = "\uF57E";
+fa.globeEurope = "\uF7A2";
+fa.globeSnow = "\uF7A3";
+fa.globeStand = "\uF5F6";
+fa.gofore = "\uF3A7";
+fa.golfBall = "\uF450";
+fa.golfClub = "\uF451";
+fa.goodreads = "\uF3A8";
+fa.goodreadsG = "\uF3A9";
+fa.google = "\uF1A0";
+fa.googleDrive = "\uF3AA";
+fa.googlePlay = "\uF3AB";
+fa.googlePlus = "\uF2B3";
+fa.googlePlusG = "\uF0D5";
+fa.googlePlusSquare = "\uF0D4";
+fa.googleWallet = "\uF1EE";
+fa.gopuram = "\uF664";
+fa.graduationCap = "\uF19D";
+fa.gratipay = "\uF184";
+fa.grav = "\uF2D6";
+fa.greaterThan = "\uF531";
+fa.greaterThanEqual = "\uF532";
+fa.grimace = "\uF57F";
+fa.grin = "\uF580";
+fa.grinAlt = "\uF581";
+fa.grinBeam = "\uF582";
+fa.grinBeamSweat = "\uF583";
+fa.grinHearts = "\uF584";
+fa.grinSquint = "\uF585";
+fa.grinSquintTears = "\uF586";
+fa.grinStars = "\uF587";
+fa.grinTears = "\uF588";
+fa.grinTongue = "\uF589";
+fa.grinTongueSquint = "\uF58A";
+fa.grinTongueWink = "\uF58B";
+fa.grinWink = "\uF58C";
+fa.gripHorizontal = "\uF58D";
+fa.gripLines = "\uF7A4";
+fa.gripLinesVertical = "\uF7A5";
+fa.gripVertical = "\uF58E";
+fa.gripfire = "\uF3AC";
+fa.grunt = "\uF3AD";
+fa.guitar = "\uF7A6";
+fa.gulp = "\uF3AE";
+fa.hSquare = "\uF0FD";
+fa.h1 = "\uF313";
+fa.h2 = "\uF314";
+fa.h3 = "\uF315";
+fa.hackerNews = "\uF1D4";
+fa.hackerNewsSquare = "\uF3AF";
+fa.hackerrank = "\uF5F7";
+fa.hammer = "\uF6E3";
+fa.hammerWar = "\uF6E4";
+fa.hamsa = "\uF665";
+fa.handHeart = "\uF4BC";
+fa.handHolding = "\uF4BD";
+fa.handHoldingBox = "\uF47B";
+fa.handHoldingHeart = "\uF4BE";
+fa.handHoldingMagic = "\uF6E5";
+fa.handHoldingSeedling = "\uF4BF";
+fa.handHoldingUsd = "\uF4C0";
+fa.handHoldingWater = "\uF4C1";
+fa.handLizard = "\uF258";
+fa.handPaper = "\uF256";
+fa.handPeace = "\uF25B";
+fa.handPointDown = "\uF0A7";
+fa.handPointLeft = "\uF0A5";
+fa.handPointRight = "\uF0A4";
+fa.handPointUp = "\uF0A6";
+fa.handPointer = "\uF25A";
+fa.handReceiving = "\uF47C";
+fa.handRock = "\uF255";
+fa.handScissors = "\uF257";
+fa.handSpock = "\uF259";
+fa.hands = "\uF4C2";
+fa.handsHeart = "\uF4C3";
+fa.handsHelping = "\uF4C4";
+fa.handsUsd = "\uF4C5";
+fa.handshake = "\uF2B5";
+fa.handshakeAlt = "\uF4C6";
+fa.hanukiah = "\uF6E6";
+fa.hashtag = "\uF292";
+fa.hatSanta = "\uF7A7";
+fa.hatWinter = "\uF7A8";
+fa.hatWitch = "\uF6E7";
+fa.hatWizard = "\uF6E8";
+fa.haykal = "\uF666";
+fa.hdd = "\uF0A0";
+fa.headSide = "\uF6E9";
+fa.headVr = "\uF6EA";
+fa.heading = "\uF1DC";
+fa.headphones = "\uF025";
+fa.headphonesAlt = "\uF58F";
+fa.headset = "\uF590";
+fa.heart = "\uF004";
+fa.heartBroken = "\uF7A9";
+fa.heartCircle = "\uF4C7";
+fa.heartRate = "\uF5F8";
+fa.heartSquare = "\uF4C8";
+fa.heartbeat = "\uF21E";
+fa.helicopter = "\uF533";
+fa.helmetBattle = "\uF6EB";
+fa.hexagon = "\uF312";
+fa.highlighter = "\uF591";
+fa.hiking = "\uF6EC";
+fa.hippo = "\uF6ED";
+fa.hips = "\uF452";
+fa.hireAHelper = "\uF3B0";
+fa.history = "\uF1DA";
+fa.hockeyMask = "\uF6EE";
+fa.hockeyPuck = "\uF453";
+fa.hockeySticks = "\uF454";
+fa.hollyBerry = "\uF7AA";
+fa.home = "\uF015";
+fa.homeHeart = "\uF4C9";
+fa.hoodCloak = "\uF6EF";
+fa.hooli = "\uF427";
+fa.hornbill = "\uF592";
+fa.horse = "\uF6F0";
+fa.horseHead = "\uF7AB";
+fa.hospital = "\uF0F8";
+fa.hospitalAlt = "\uF47D";
+fa.hospitalSymbol = "\uF47E";
+fa.hotTub = "\uF593";
+fa.hotel = "\uF594";
+fa.hotjar = "\uF3B1";
+fa.hourglass = "\uF254";
+fa.hourglassEnd = "\uF253";
+fa.hourglassHalf = "\uF252";
+fa.hourglassStart = "\uF251";
+fa.houseDamage = "\uF6F1";
+fa.houseFlood = "\uF74F";
+fa.houzz = "\uF27C";
+fa.hryvnia = "\uF6F2";
+fa.html5 = "\uF13B";
+fa.hubspot = "\uF3B2";
+fa.humidity = "\uF750";
+fa.hurricane = "\uF751";
+fa.iCursor = "\uF246";
+fa.iceSkate = "\uF7AC";
+fa.icicles = "\uF7AD";
+fa.idBadge = "\uF2C1";
+fa.idCard = "\uF2C2";
+fa.idCardAlt = "\uF47F";
+fa.igloo = "\uF7AE";
+fa.image = "\uF03E";
+fa.images = "\uF302";
+fa.imdb = "\uF2D8";
+fa.inbox = "\uF01C";
+fa.inboxIn = "\uF310";
+fa.inboxOut = "\uF311";
+fa.indent = "\uF03C";
+fa.industry = "\uF275";
+fa.industryAlt = "\uF3B3";
+fa.infinity = "\uF534";
+fa.info = "\uF129";
+fa.infoCircle = "\uF05A";
+fa.infoSquare = "\uF30F";
+fa.inhaler = "\uF5F9";
+fa.instagram = "\uF16D";
+fa.integral = "\uF667";
+fa.intercom = "\uF7AF";
+fa.internetExplorer = "\uF26B";
+fa.intersection = "\uF668";
+fa.inventory = "\uF480";
+fa.invision = "\uF7B0";
+fa.ioxhost = "\uF208";
+fa.italic = "\uF033";
+fa.itunes = "\uF3B4";
+fa.itunesNote = "\uF3B5";
+fa.jackOLantern = "\uF30E";
+fa.java = "\uF4E4";
+fa.jedi = "\uF669";
+fa.jediOrder = "\uF50E";
+fa.jenkins = "\uF3B6";
+fa.jira = "\uF7B1";
+fa.joget = "\uF3B7";
+fa.joint = "\uF595";
+fa.joomla = "\uF1AA";
+fa.journalWhills = "\uF66A";
+fa.js = "\uF3B8";
+fa.jsSquare = "\uF3B9";
+fa.jsfiddle = "\uF1CC";
+fa.kaaba = "\uF66B";
+fa.kaggle = "\uF5FA";
+fa.key = "\uF084";
+fa.keySkeleton = "\uF6F3";
+fa.keybase = "\uF4F5";
+fa.keyboard = "\uF11C";
+fa.keycdn = "\uF3BA";
+fa.keynote = "\uF66C";
+fa.khanda = "\uF66D";
+fa.kickstarter = "\uF3BB";
+fa.kickstarterK = "\uF3BC";
+fa.kidneys = "\uF5FB";
+fa.kiss = "\uF596";
+fa.kissBeam = "\uF597";
+fa.kissWinkHeart = "\uF598";
+fa.kite = "\uF6F4";
+fa.kiwiBird = "\uF535";
+fa.knifeKitchen = "\uF6F5";
+fa.korvue = "\uF42F";
+fa.lambda = "\uF66E";
+fa.lamp = "\uF4CA";
+fa.landmark = "\uF66F";
+fa.landmarkAlt = "\uF752";
+fa.language = "\uF1AB";
+fa.laptop = "\uF109";
+fa.laptopCode = "\uF5FC";
+fa.laravel = "\uF3BD";
+fa.lastfm = "\uF202";
+fa.lastfmSquare = "\uF203";
+fa.laugh = "\uF599";
+fa.laughBeam = "\uF59A";
+fa.laughSquint = "\uF59B";
+fa.laughWink = "\uF59C";
+fa.layerGroup = "\uF5FD";
+fa.layerMinus = "\uF5FE";
+fa.layerPlus = "\uF5FF";
+fa.leaf = "\uF06C";
+fa.leafHeart = "\uF4CB";
+fa.leafMaple = "\uF6F6";
+fa.leafOak = "\uF6F7";
+fa.leanpub = "\uF212";
+fa.lemon = "\uF094";
+fa.less = "\uF41D";
+fa.lessThan = "\uF536";
+fa.lessThanEqual = "\uF537";
+fa.levelDown = "\uF149";
+fa.levelDownAlt = "\uF3BE";
+fa.levelUp = "\uF148";
+fa.levelUpAlt = "\uF3BF";
+fa.lifeRing = "\uF1CD";
+fa.lightbulb = "\uF0EB";
+fa.lightbulbDollar = "\uF670";
+fa.lightbulbExclamation = "\uF671";
+fa.lightbulbOn = "\uF672";
+fa.lightbulbSlash = "\uF673";
+fa.lightsHoliday = "\uF7B2";
+fa.line = "\uF3C0";
+fa.link = "\uF0C1";
+fa.linkedin = "\uF08C";
+fa.linkedinIn = "\uF0E1";
+fa.linode = "\uF2B8";
+fa.linux = "\uF17C";
+fa.lips = "\uF600";
+fa.liraSign = "\uF195";
+fa.list = "\uF03A";
+fa.listAlt = "\uF022";
+fa.listOl = "\uF0CB";
+fa.listUl = "\uF0CA";
+fa.location = "\uF601";
+fa.locationArrow = "\uF124";
+fa.locationCircle = "\uF602";
+fa.locationSlash = "\uF603";
+fa.lock = "\uF023";
+fa.lockAlt = "\uF30D";
+fa.lockOpen = "\uF3C1";
+fa.lockOpenAlt = "\uF3C2";
+fa.longArrowAltDown = "\uF309";
+fa.longArrowAltLeft = "\uF30A";
+fa.longArrowAltRight = "\uF30B";
+fa.longArrowAltUp = "\uF30C";
+fa.longArrowDown = "\uF175";
+fa.longArrowLeft = "\uF177";
+fa.longArrowRight = "\uF178";
+fa.longArrowUp = "\uF176";
+fa.loveseat = "\uF4CC";
+fa.lowVision = "\uF2A8";
+fa.luchador = "\uF455";
+fa.luggageCart = "\uF59D";
+fa.lungs = "\uF604";
+fa.lyft = "\uF3C3";
+fa.mace = "\uF6F8";
+fa.magento = "\uF3C4";
+fa.magic = "\uF0D0";
+fa.magnet = "\uF076";
+fa.mailBulk = "\uF674";
+fa.mailchimp = "\uF59E";
+fa.male = "\uF183";
+fa.mandalorian = "\uF50F";
+fa.mandolin = "\uF6F9";
+fa.map = "\uF279";
+fa.mapMarked = "\uF59F";
+fa.mapMarkedAlt = "\uF5A0";
+fa.mapMarker = "\uF041";
+fa.mapMarkerAlt = "\uF3C5";
+fa.mapMarkerAltSlash = "\uF605";
+fa.mapMarkerCheck = "\uF606";
+fa.mapMarkerEdit = "\uF607";
+fa.mapMarkerExclamation = "\uF608";
+fa.mapMarkerMinus = "\uF609";
+fa.mapMarkerPlus = "\uF60A";
+fa.mapMarkerQuestion = "\uF60B";
+fa.mapMarkerSlash = "\uF60C";
+fa.mapMarkerSmile = "\uF60D";
+fa.mapMarkerTimes = "\uF60E";
+fa.mapPin = "\uF276";
+fa.mapSigns = "\uF277";
+fa.markdown = "\uF60F";
+fa.marker = "\uF5A1";
+fa.mars = "\uF222";
+fa.marsDouble = "\uF227";
+fa.marsStroke = "\uF229";
+fa.marsStrokeH = "\uF22B";
+fa.marsStrokeV = "\uF22A";
+fa.mask = "\uF6FA";
+fa.mastodon = "\uF4F6";
+fa.maxcdn = "\uF136";
+fa.medal = "\uF5A2";
+fa.medapps = "\uF3C6";
+fa.medium = "\uF23A";
+fa.mediumM = "\uF3C7";
+fa.medkit = "\uF0FA";
+fa.medrt = "\uF3C8";
+fa.meetup = "\uF2E0";
+fa.megaphone = "\uF675";
+fa.megaport = "\uF5A3";
+fa.meh = "\uF11A";
+fa.mehBlank = "\uF5A4";
+fa.mehRollingEyes = "\uF5A5";
+fa.memory = "\uF538";
+fa.mendeley = "\uF7B3";
+fa.menorah = "\uF676";
+fa.mercury = "\uF223";
+fa.meteor = "\uF753";
+fa.microchip = "\uF2DB";
+fa.microphone = "\uF130";
+fa.microphoneAlt = "\uF3C9";
+fa.microphoneAltSlash = "\uF539";
+fa.microphoneSlash = "\uF131";
+fa.microscope = "\uF610";
+fa.microsoft = "\uF3CA";
+fa.mindShare = "\uF677";
+fa.minus = "\uF068";
+fa.minusCircle = "\uF056";
+fa.minusHexagon = "\uF307";
+fa.minusOctagon = "\uF308";
+fa.minusSquare = "\uF146";
+fa.mistletoe = "\uF7B4";
+fa.mitten = "\uF7B5";
+fa.mix = "\uF3CB";
+fa.mixcloud = "\uF289";
+fa.mizuni = "\uF3CC";
+fa.mobile = "\uF10B";
+fa.mobileAlt = "\uF3CD";
+fa.mobileAndroid = "\uF3CE";
+fa.mobileAndroidAlt = "\uF3CF";
+fa.modx = "\uF285";
+fa.monero = "\uF3D0";
+fa.moneyBill = "\uF0D6";
+fa.moneyBillAlt = "\uF3D1";
+fa.moneyBillWave = "\uF53A";
+fa.moneyBillWaveAlt = "\uF53B";
+fa.moneyCheck = "\uF53C";
+fa.moneyCheckAlt = "\uF53D";
+fa.monitorHeartRate = "\uF611";
+fa.monkey = "\uF6FB";
+fa.monument = "\uF5A6";
+fa.moon = "\uF186";
+fa.moonCloud = "\uF754";
+fa.moonStars = "\uF755";
+fa.mortarPestle = "\uF5A7";
+fa.mosque = "\uF678";
+fa.motorcycle = "\uF21C";
+fa.mountain = "\uF6FC";
+fa.mountains = "\uF6FD";
+fa.mousePointer = "\uF245";
+fa.mugHot = "\uF7B6";
+fa.mugMarshmallows = "\uF7B7";
+fa.music = "\uF001";
+fa.napster = "\uF3D2";
+fa.narwhal = "\uF6FE";
+fa.neos = "\uF612";
+fa.networkWired = "\uF6FF";
+fa.neuter = "\uF22C";
+fa.newspaper = "\uF1EA";
+fa.nimblr = "\uF5A8";
+fa.nintendoSwitch = "\uF418";
+fa.node = "\uF419";
+fa.nodeJs = "\uF3D3";
+fa.notEqual = "\uF53E";
+fa.notesMedical = "\uF481";
+fa.npm = "\uF3D4";
+fa.ns8 = "\uF3D5";
+fa.nutritionix = "\uF3D6";
+fa.objectGroup = "\uF247";
+fa.objectUngroup = "\uF248";
+fa.octagon = "\uF306";
+fa.odnoklassniki = "\uF263";
+fa.odnoklassnikiSquare = "\uF264";
+fa.oilCan = "\uF613";
+fa.oilTemp = "\uF614";
+fa.oldRepublic = "\uF510";
+fa.om = "\uF679";
+fa.omega = "\uF67A";
+fa.opencart = "\uF23D";
+fa.openid = "\uF19B";
+fa.opera = "\uF26A";
+fa.optinMonster = "\uF23C";
+fa.ornament = "\uF7B8";
+fa.osi = "\uF41A";
+fa.otter = "\uF700";
+fa.outdent = "\uF03B";
+fa.page4 = "\uF3D7";
+fa.pagelines = "\uF18C";
+fa.paintBrush = "\uF1FC";
+fa.paintBrushAlt = "\uF5A9";
+fa.paintRoller = "\uF5AA";
+fa.palette = "\uF53F";
+fa.palfed = "\uF3D8";
+fa.pallet = "\uF482";
+fa.palletAlt = "\uF483";
+fa.paperPlane = "\uF1D8";
+fa.paperclip = "\uF0C6";
+fa.parachuteBox = "\uF4CD";
+fa.paragraph = "\uF1DD";
+fa.parking = "\uF540";
+fa.parkingCircle = "\uF615";
+fa.parkingCircleSlash = "\uF616";
+fa.parkingSlash = "\uF617";
+fa.passport = "\uF5AB";
+fa.pastafarianism = "\uF67B";
+fa.paste = "\uF0EA";
+fa.patreon = "\uF3D9";
+fa.pause = "\uF04C";
+fa.pauseCircle = "\uF28B";
+fa.paw = "\uF1B0";
+fa.pawAlt = "\uF701";
+fa.pawClaws = "\uF702";
+fa.paypal = "\uF1ED";
+fa.peace = "\uF67C";
+fa.pegasus = "\uF703";
+fa.pen = "\uF304";
+fa.penAlt = "\uF305";
+fa.penFancy = "\uF5AC";
+fa.penNib = "\uF5AD";
+fa.penSquare = "\uF14B";
+fa.pencil = "\uF040";
+fa.pencilAlt = "\uF303";
+fa.pencilPaintbrush = "\uF618";
+fa.pencilRuler = "\uF5AE";
+fa.pennant = "\uF456";
+fa.pennyArcade = "\uF704";
+fa.peopleCarry = "\uF4CE";
+fa.percent = "\uF295";
+fa.percentage = "\uF541";
+fa.periscope = "\uF3DA";
+fa.personBooth = "\uF756";
+fa.personCarry = "\uF4CF";
+fa.personDolly = "\uF4D0";
+fa.personDollyEmpty = "\uF4D1";
+fa.personSign = "\uF757";
+fa.phabricator = "\uF3DB";
+fa.phoenixFramework = "\uF3DC";
+fa.phoenixSquadron = "\uF511";
+fa.phone = "\uF095";
+fa.phoneOffice = "\uF67D";
+fa.phonePlus = "\uF4D2";
+fa.phoneSlash = "\uF3DD";
+fa.phoneSquare = "\uF098";
+fa.phoneVolume = "\uF2A0";
+fa.php = "\uF457";
+fa.pi = "\uF67E";
+fa.pie = "\uF705";
+fa.piedPiper = "\uF2AE";
+fa.piedPiperAlt = "\uF1A8";
+fa.piedPiperHat = "\uF4E5";
+fa.piedPiperPp = "\uF1A7";
+fa.pig = "\uF706";
+fa.piggyBank = "\uF4D3";
+fa.pills = "\uF484";
+fa.pinterest = "\uF0D2";
+fa.pinterestP = "\uF231";
+fa.pinterestSquare = "\uF0D3";
+fa.placeOfWorship = "\uF67F";
+fa.plane = "\uF072";
+fa.planeAlt = "\uF3DE";
+fa.planeArrival = "\uF5AF";
+fa.planeDeparture = "\uF5B0";
+fa.play = "\uF04B";
+fa.playCircle = "\uF144";
+fa.playstation = "\uF3DF";
+fa.plug = "\uF1E6";
+fa.plus = "\uF067";
+fa.plusCircle = "\uF055";
+fa.plusHexagon = "\uF300";
+fa.plusOctagon = "\uF301";
+fa.plusSquare = "\uF0FE";
+fa.podcast = "\uF2CE";
+fa.podium = "\uF680";
+fa.podiumStar = "\uF758";
+fa.poll = "\uF681";
+fa.pollH = "\uF682";
+fa.pollPeople = "\uF759";
+fa.poo = "\uF2FE";
+fa.pooStorm = "\uF75A";
+fa.poop = "\uF619";
+fa.portrait = "\uF3E0";
+fa.poundSign = "\uF154";
+fa.powerOff = "\uF011";
+fa.pray = "\uF683";
+fa.prayingHands = "\uF684";
+fa.prescription = "\uF5B1";
+fa.prescriptionBottle = "\uF485";
+fa.prescriptionBottleAlt = "\uF486";
+fa.presentation = "\uF685";
+fa.print = "\uF02F";
+fa.printSlash = "\uF686";
+fa.procedures = "\uF487";
+fa.productHunt = "\uF288";
+fa.projectDiagram = "\uF542";
+fa.pumpkin = "\uF707";
+fa.pushed = "\uF3E1";
+fa.puzzlePiece = "\uF12E";
+fa.python = "\uF3E2";
+fa.qq = "\uF1D6";
+fa.qrcode = "\uF029";
+fa.question = "\uF128";
+fa.questionCircle = "\uF059";
+fa.questionSquare = "\uF2FD";
+fa.quidditch = "\uF458";
+fa.quinscape = "\uF459";
+fa.quora = "\uF2C4";
+fa.quoteLeft = "\uF10D";
+fa.quoteRight = "\uF10E";
+fa.quran = "\uF687";
+fa.rProject = "\uF4F7";
+fa.rabbit = "\uF708";
+fa.rabbitFast = "\uF709";
+fa.racquet = "\uF45A";
+fa.radiation = "\uF7B9";
+fa.radiationAlt = "\uF7BA";
+fa.rainbow = "\uF75B";
+fa.raindrops = "\uF75C";
+fa.ram = "\uF70A";
+fa.rampLoading = "\uF4D4";
+fa.random = "\uF074";
+fa.raspberryPi = "\uF7BB";
+fa.ravelry = "\uF2D9";
+fa.react = "\uF41B";
+fa.reacteurope = "\uF75D";
+fa.readme = "\uF4D5";
+fa.rebel = "\uF1D0";
+fa.receipt = "\uF543";
+fa.rectangleLandscape = "\uF2FA";
+fa.rectanglePortrait = "\uF2FB";
+fa.rectangleWide = "\uF2FC";
+fa.recycle = "\uF1B8";
+fa.redRiver = "\uF3E3";
+fa.reddit = "\uF1A1";
+fa.redditAlien = "\uF281";
+fa.redditSquare = "\uF1A2";
+fa.redhat = "\uF7BC";
+fa.redo = "\uF01E";
+fa.redoAlt = "\uF2F9";
+fa.registered = "\uF25D";
+fa.renren = "\uF18B";
+fa.repeat = "\uF363";
+fa.repeat1 = "\uF365";
+fa.repeat1Alt = "\uF366";
+fa.repeatAlt = "\uF364";
+fa.reply = "\uF3E5";
+fa.replyAll = "\uF122";
+fa.replyd = "\uF3E6";
+fa.republican = "\uF75E";
+fa.researchgate = "\uF4F8";
+fa.resolving = "\uF3E7";
+fa.restroom = "\uF7BD";
+fa.retweet = "\uF079";
+fa.retweetAlt = "\uF361";
+fa.rev = "\uF5B2";
+fa.ribbon = "\uF4D6";
+fa.ring = "\uF70B";
+fa.road = "\uF018";
+fa.robot = "\uF544";
+fa.rocket = "\uF135";
+fa.rocketchat = "\uF3E8";
+fa.rockrms = "\uF3E9";
+fa.route = "\uF4D7";
+fa.routeHighway = "\uF61A";
+fa.routeInterstate = "\uF61B";
+fa.rss = "\uF09E";
+fa.rssSquare = "\uF143";
+fa.rubleSign = "\uF158";
+fa.ruler = "\uF545";
+fa.rulerCombined = "\uF546";
+fa.rulerHorizontal = "\uF547";
+fa.rulerTriangle = "\uF61C";
+fa.rulerVertical = "\uF548";
+fa.running = "\uF70C";
+fa.rupeeSign = "\uF156";
+fa.rv = "\uF7BE";
+fa.sadCry = "\uF5B3";
+fa.sadTear = "\uF5B4";
+fa.safari = "\uF267";
+fa.sass = "\uF41E";
+fa.satellite = "\uF7BF";
+fa.satelliteDish = "\uF7C0";
+fa.save = "\uF0C7";
+fa.scalpel = "\uF61D";
+fa.scalpelPath = "\uF61E";
+fa.scanner = "\uF488";
+fa.scannerKeyboard = "\uF489";
+fa.scannerTouchscreen = "\uF48A";
+fa.scarecrow = "\uF70D";
+fa.scarf = "\uF7C1";
+fa.schlix = "\uF3EA";
+fa.school = "\uF549";
+fa.screwdriver = "\uF54A";
+fa.scribd = "\uF28A";
+fa.scroll = "\uF70E";
+fa.scrollOld = "\uF70F";
+fa.scrubber = "\uF2F8";
+fa.scythe = "\uF710";
+fa.sdCard = "\uF7C2";
+fa.search = "\uF002";
+fa.searchDollar = "\uF688";
+fa.searchLocation = "\uF689";
+fa.searchMinus = "\uF010";
+fa.searchPlus = "\uF00E";
+fa.searchengin = "\uF3EB";
+fa.seedling = "\uF4D8";
+fa.sellcast = "\uF2DA";
+fa.sellsy = "\uF213";
+fa.server = "\uF233";
+fa.servicestack = "\uF3EC";
+fa.shapes = "\uF61F";
+fa.share = "\uF064";
+fa.shareAll = "\uF367";
+fa.shareAlt = "\uF1E0";
+fa.shareAltSquare = "\uF1E1";
+fa.shareSquare = "\uF14D";
+fa.sheep = "\uF711";
+fa.shekelSign = "\uF20B";
+fa.shield = "\uF132";
+fa.shieldAlt = "\uF3ED";
+fa.shieldCheck = "\uF2F7";
+fa.shieldCross = "\uF712";
+fa.ship = "\uF21A";
+fa.shippingFast = "\uF48B";
+fa.shippingTimed = "\uF48C";
+fa.shirtsinbulk = "\uF214";
+fa.shoePrints = "\uF54B";
+fa.shoppingBag = "\uF290";
+fa.shoppingBasket = "\uF291";
+fa.shoppingCart = "\uF07A";
+fa.shopware = "\uF5B5";
+fa.shovel = "\uF713";
+fa.shovelSnow = "\uF7C3";
+fa.shower = "\uF2CC";
+fa.shredder = "\uF68A";
+fa.shuttleVan = "\uF5B6";
+fa.shuttlecock = "\uF45B";
+fa.sigma = "\uF68B";
+fa.sign = "\uF4D9";
+fa.signIn = "\uF090";
+fa.signInAlt = "\uF2F6";
+fa.signLanguage = "\uF2A7";
+fa.signOut = "\uF08B";
+fa.signOutAlt = "\uF2F5";
+fa.signal = "\uF012";
+fa.signal1 = "\uF68C";
+fa.signal2 = "\uF68D";
+fa.signal3 = "\uF68E";
+fa.signal4 = "\uF68F";
+fa.signalAlt = "\uF690";
+fa.signalAlt1 = "\uF691";
+fa.signalAlt2 = "\uF692";
+fa.signalAlt3 = "\uF693";
+fa.signalAltSlash = "\uF694";
+fa.signalSlash = "\uF695";
+fa.signature = "\uF5B7";
+fa.simCard = "\uF7C4";
+fa.simplybuilt = "\uF215";
+fa.sistrix = "\uF3EE";
+fa.sitemap = "\uF0E8";
+fa.sith = "\uF512";
+fa.skating = "\uF7C5";
+fa.skeleton = "\uF620";
+fa.sketch = "\uF7C6";
+fa.skiJump = "\uF7C7";
+fa.skiLift = "\uF7C8";
+fa.skiing = "\uF7C9";
+fa.skiingNordic = "\uF7CA";
+fa.skull = "\uF54C";
+fa.skullCrossbones = "\uF714";
+fa.skyatlas = "\uF216";
+fa.skype = "\uF17E";
+fa.slack = "\uF198";
+fa.slackHash = "\uF3EF";
+fa.slash = "\uF715";
+fa.sledding = "\uF7CB";
+fa.sleigh = "\uF7CC";
+fa.slidersH = "\uF1DE";
+fa.slidersHSquare = "\uF3F0";
+fa.slidersV = "\uF3F1";
+fa.slidersVSquare = "\uF3F2";
+fa.slideshare = "\uF1E7";
+fa.smile = "\uF118";
+fa.smileBeam = "\uF5B8";
+fa.smilePlus = "\uF5B9";
+fa.smileWink = "\uF4DA";
+fa.smog = "\uF75F";
+fa.smoke = "\uF760";
+fa.smoking = "\uF48D";
+fa.smokingBan = "\uF54D";
+fa.sms = "\uF7CD";
+fa.snake = "\uF716";
+fa.snapchat = "\uF2AB";
+fa.snapchatGhost = "\uF2AC";
+fa.snapchatSquare = "\uF2AD";
+fa.snowBlowing = "\uF761";
+fa.snowboarding = "\uF7CE";
+fa.snowflake = "\uF2DC";
+fa.snowflakes = "\uF7CF";
+fa.snowman = "\uF7D0";
+fa.snowmobile = "\uF7D1";
+fa.snowplow = "\uF7D2";
+fa.socks = "\uF696";
+fa.solarPanel = "\uF5BA";
+fa.sort = "\uF0DC";
+fa.sortAlphaDown = "\uF15D";
+fa.sortAlphaUp = "\uF15E";
+fa.sortAmountDown = "\uF160";
+fa.sortAmountUp = "\uF161";
+fa.sortDown = "\uF0DD";
+fa.sortNumericDown = "\uF162";
+fa.sortNumericUp = "\uF163";
+fa.sortUp = "\uF0DE";
+fa.soundcloud = "\uF1BE";
+fa.sourcetree = "\uF7D3";
+fa.spa = "\uF5BB";
+fa.spaceShuttle = "\uF197";
+fa.spade = "\uF2F4";
+fa.speakap = "\uF3F3";
+fa.spider = "\uF717";
+fa.spiderBlackWidow = "\uF718";
+fa.spiderWeb = "\uF719";
+fa.spinner = "\uF110";
+fa.spinnerThird = "\uF3F4";
+fa.splotch = "\uF5BC";
+fa.spotify = "\uF1BC";
+fa.sprayCan = "\uF5BD";
+fa.square = "\uF0C8";
+fa.squareFull = "\uF45C";
+fa.squareRoot = "\uF697";
+fa.squareRootAlt = "\uF698";
+fa.squarespace = "\uF5BE";
+fa.squirrel = "\uF71A";
+fa.stackExchange = "\uF18D";
+fa.stackOverflow = "\uF16C";
+fa.staff = "\uF71B";
+fa.stamp = "\uF5BF";
+fa.star = "\uF005";
+fa.starAndCrescent = "\uF699";
+fa.starChristmas = "\uF7D4";
+fa.starExclamation = "\uF2F3";
+fa.starHalf = "\uF089";
+fa.starHalfAlt = "\uF5C0";
+fa.starOfDavid = "\uF69A";
+fa.starOfLife = "\uF621";
+fa.stars = "\uF762";
+fa.staylinked = "\uF3F5";
+fa.steam = "\uF1B6";
+fa.steamSquare = "\uF1B7";
+fa.steamSymbol = "\uF3F6";
+fa.steeringWheel = "\uF622";
+fa.stepBackward = "\uF048";
+fa.stepForward = "\uF051";
+fa.stethoscope = "\uF0F1";
+fa.stickerMule = "\uF3F7";
+fa.stickyNote = "\uF249";
+fa.stocking = "\uF7D5";
+fa.stomach = "\uF623";
+fa.stop = "\uF04D";
+fa.stopCircle = "\uF28D";
+fa.stopwatch = "\uF2F2";
+fa.store = "\uF54E";
+fa.storeAlt = "\uF54F";
+fa.strava = "\uF428";
+fa.stream = "\uF550";
+fa.streetView = "\uF21D";
+fa.strikethrough = "\uF0CC";
+fa.stripe = "\uF429";
+fa.stripeS = "\uF42A";
+fa.stroopwafel = "\uF551";
+fa.studiovinari = "\uF3F8";
+fa.stumbleupon = "\uF1A4";
+fa.stumbleuponCircle = "\uF1A3";
+fa.subscript = "\uF12C";
+fa.subway = "\uF239";
+fa.suitcase = "\uF0F2";
+fa.suitcaseRolling = "\uF5C1";
+fa.sun = "\uF185";
+fa.sunCloud = "\uF763";
+fa.sunDust = "\uF764";
+fa.sunHaze = "\uF765";
+fa.sunrise = "\uF766";
+fa.sunset = "\uF767";
+fa.superpowers = "\uF2DD";
+fa.superscript = "\uF12B";
+fa.supple = "\uF3F9";
+fa.surprise = "\uF5C2";
+fa.suse = "\uF7D6";
+fa.swatchbook = "\uF5C3";
+fa.swimmer = "\uF5C4";
+fa.swimmingPool = "\uF5C5";
+fa.sword = "\uF71C";
+fa.swords = "\uF71D";
+fa.synagogue = "\uF69B";
+fa.sync = "\uF021";
+fa.syncAlt = "\uF2F1";
+fa.syringe = "\uF48E";
+fa.table = "\uF0CE";
+fa.tableTennis = "\uF45D";
+fa.tablet = "\uF10A";
+fa.tabletAlt = "\uF3FA";
+fa.tabletAndroid = "\uF3FB";
+fa.tabletAndroidAlt = "\uF3FC";
+fa.tabletRugged = "\uF48F";
+fa.tablets = "\uF490";
+fa.tachometer = "\uF0E4";
+fa.tachometerAlt = "\uF3FD";
+fa.tachometerAltAverage = "\uF624";
+fa.tachometerAltFast = "\uF625";
+fa.tachometerAltFastest = "\uF626";
+fa.tachometerAltSlow = "\uF627";
+fa.tachometerAltSlowest = "\uF628";
+fa.tachometerAverage = "\uF629";
+fa.tachometerFast = "\uF62A";
+fa.tachometerFastest = "\uF62B";
+fa.tachometerSlow = "\uF62C";
+fa.tachometerSlowest = "\uF62D";
+fa.tag = "\uF02B";
+fa.tags = "\uF02C";
+fa.tally = "\uF69C";
+fa.tape = "\uF4DB";
+fa.tasks = "\uF0AE";
+fa.taxi = "\uF1BA";
+fa.teamspeak = "\uF4F9";
+fa.teeth = "\uF62E";
+fa.teethOpen = "\uF62F";
+fa.telegram = "\uF2C6";
+fa.telegramPlane = "\uF3FE";
+fa.temperatureFrigid = "\uF768";
+fa.temperatureHigh = "\uF769";
+fa.temperatureHot = "\uF76A";
+fa.temperatureLow = "\uF76B";
+fa.tencentWeibo = "\uF1D5";
+fa.tenge = "\uF7D7";
+fa.tennisBall = "\uF45E";
+fa.terminal = "\uF120";
+fa.textHeight = "\uF034";
+fa.textWidth = "\uF035";
+fa.th = "\uF00A";
+fa.thLarge = "\uF009";
+fa.thList = "\uF00B";
+fa.theRedYeti = "\uF69D";
+fa.theaterMasks = "\uF630";
+fa.themeco = "\uF5C6";
+fa.themeisle = "\uF2B2";
+fa.thermometer = "\uF491";
+fa.thermometerEmpty = "\uF2CB";
+fa.thermometerFull = "\uF2C7";
+fa.thermometerHalf = "\uF2C9";
+fa.thermometerQuarter = "\uF2CA";
+fa.thermometerThreeQuarters = "\uF2C8";
+fa.theta = "\uF69E";
+fa.thinkPeaks = "\uF731";
+fa.thumbsDown = "\uF165";
+fa.thumbsUp = "\uF164";
+fa.thumbtack = "\uF08D";
+fa.thunderstorm = "\uF76C";
+fa.thunderstormMoon = "\uF76D";
+fa.thunderstormSun = "\uF76E";
+fa.ticket = "\uF145";
+fa.ticketAlt = "\uF3FF";
+fa.tilde = "\uF69F";
+fa.times = "\uF00D";
+fa.timesCircle = "\uF057";
+fa.timesHexagon = "\uF2EE";
+fa.timesOctagon = "\uF2F0";
+fa.timesSquare = "\uF2D3";
+fa.tint = "\uF043";
+fa.tintSlash = "\uF5C7";
+fa.tire = "\uF631";
+fa.tireFlat = "\uF632";
+fa.tirePressureWarning = "\uF633";
+fa.tireRugged = "\uF634";
+fa.tired = "\uF5C8";
+fa.toggleOff = "\uF204";
+fa.toggleOn = "\uF205";
+fa.toilet = "\uF7D8";
+fa.toiletPaper = "\uF71E";
+fa.toiletPaperAlt = "\uF71F";
+fa.tombstone = "\uF720";
+fa.tombstoneAlt = "\uF721";
+fa.toolbox = "\uF552";
+fa.tools = "\uF7D9";
+fa.tooth = "\uF5C9";
+fa.toothbrush = "\uF635";
+fa.torah = "\uF6A0";
+fa.toriiGate = "\uF6A1";
+fa.tornado = "\uF76F";
+fa.tractor = "\uF722";
+fa.tradeFederation = "\uF513";
+fa.trademark = "\uF25C";
+fa.trafficCone = "\uF636";
+fa.trafficLight = "\uF637";
+fa.trafficLightGo = "\uF638";
+fa.trafficLightSlow = "\uF639";
+fa.trafficLightStop = "\uF63A";
+fa.train = "\uF238";
+fa.tram = "\uF7DA";
+fa.transgender = "\uF224";
+fa.transgenderAlt = "\uF225";
+fa.trash = "\uF1F8";
+fa.trashAlt = "\uF2ED";
+fa.treasureChest = "\uF723";
+fa.tree = "\uF1BB";
+fa.treeAlt = "\uF400";
+fa.treeChristmas = "\uF7DB";
+fa.treeDecorated = "\uF7DC";
+fa.treeLarge = "\uF7DD";
+fa.trees = "\uF724";
+fa.trello = "\uF181";
+fa.triangle = "\uF2EC";
+fa.tripadvisor = "\uF262";
+fa.trophy = "\uF091";
+fa.trophyAlt = "\uF2EB";
+fa.truck = "\uF0D1";
+fa.truckContainer = "\uF4DC";
+fa.truckCouch = "\uF4DD";
+fa.truckLoading = "\uF4DE";
+fa.truckMonster = "\uF63B";
+fa.truckMoving = "\uF4DF";
+fa.truckPickup = "\uF63C";
+fa.truckPlow = "\uF7DE";
+fa.truckRamp = "\uF4E0";
+fa.tshirt = "\uF553";
+fa.tty = "\uF1E4";
+fa.tumblr = "\uF173";
+fa.tumblrSquare = "\uF174";
+fa.turkey = "\uF725";
+fa.turtle = "\uF726";
+fa.tv = "\uF26C";
+fa.tvRetro = "\uF401";
+fa.twitch = "\uF1E8";
+fa.twitter = "\uF099";
+fa.twitterSquare = "\uF081";
+fa.typo3 = "\uF42B";
+fa.uber = "\uF402";
+fa.ubuntu = "\uF7DF";
+fa.uikit = "\uF403";
+fa.umbrella = "\uF0E9";
+fa.umbrellaBeach = "\uF5CA";
+fa.underline = "\uF0CD";
+fa.undo = "\uF0E2";
+fa.undoAlt = "\uF2EA";
+fa.unicorn = "\uF727";
+fa.union = "\uF6A2";
+fa.uniregistry = "\uF404";
+fa.universalAccess = "\uF29A";
+fa.university = "\uF19C";
+fa.unlink = "\uF127";
+fa.unlock = "\uF09C";
+fa.unlockAlt = "\uF13E";
+fa.untappd = "\uF405";
+fa.upload = "\uF093";
+fa.ups = "\uF7E0";
+fa.usb = "\uF287";
+fa.usdCircle = "\uF2E8";
+fa.usdSquare = "\uF2E9";
+fa.user = "\uF007";
+fa.userAlt = "\uF406";
+fa.userAltSlash = "\uF4FA";
+fa.userAstronaut = "\uF4FB";
+fa.userChart = "\uF6A3";
+fa.userCheck = "\uF4FC";
+fa.userCircle = "\uF2BD";
+fa.userClock = "\uF4FD";
+fa.userCog = "\uF4FE";
+fa.userCrown = "\uF6A4";
+fa.userEdit = "\uF4FF";
+fa.userFriends = "\uF500";
+fa.userGraduate = "\uF501";
+fa.userInjured = "\uF728";
+fa.userLock = "\uF502";
+fa.userMd = "\uF0F0";
+fa.userMinus = "\uF503";
+fa.userNinja = "\uF504";
+fa.userPlus = "\uF234";
+fa.userSecret = "\uF21B";
+fa.userShield = "\uF505";
+fa.userSlash = "\uF506";
+fa.userTag = "\uF507";
+fa.userTie = "\uF508";
+fa.userTimes = "\uF235";
+fa.users = "\uF0C0";
+fa.usersClass = "\uF63D";
+fa.usersCog = "\uF509";
+fa.usersCrown = "\uF6A5";
+fa.usps = "\uF7E1";
+fa.ussunnah = "\uF407";
+fa.utensilFork = "\uF2E3";
+fa.utensilKnife = "\uF2E4";
+fa.utensilSpoon = "\uF2E5";
+fa.utensils = "\uF2E7";
+fa.utensilsAlt = "\uF2E6";
+fa.vaadin = "\uF408";
+fa.valueAbsolute = "\uF6A6";
+fa.vectorSquare = "\uF5CB";
+fa.venus = "\uF221";
+fa.venusDouble = "\uF226";
+fa.venusMars = "\uF228";
+fa.viacoin = "\uF237";
+fa.viadeo = "\uF2A9";
+fa.viadeoSquare = "\uF2AA";
+fa.vial = "\uF492";
+fa.vials = "\uF493";
+fa.viber = "\uF409";
+fa.video = "\uF03D";
+fa.videoPlus = "\uF4E1";
+fa.videoSlash = "\uF4E2";
+fa.vihara = "\uF6A7";
+fa.vimeo = "\uF40A";
+fa.vimeoSquare = "\uF194";
+fa.vimeoV = "\uF27D";
+fa.vine = "\uF1CA";
+fa.vk = "\uF189";
+fa.vnv = "\uF40B";
+fa.volcano = "\uF770";
+fa.volleyballBall = "\uF45F";
+fa.volume = "\uF6A8";
+fa.volumeDown = "\uF027";
+fa.volumeMute = "\uF6A9";
+fa.volumeOff = "\uF026";
+fa.volumeSlash = "\uF2E2";
+fa.volumeUp = "\uF028";
+fa.voteNay = "\uF771";
+fa.voteYea = "\uF772";
+fa.vrCardboard = "\uF729";
+fa.vuejs = "\uF41F";
+fa.walking = "\uF554";
+fa.wallet = "\uF555";
+fa.wand = "\uF72A";
+fa.wandMagic = "\uF72B";
+fa.warehouse = "\uF494";
+fa.warehouseAlt = "\uF495";
+fa.watch = "\uF2E1";
+fa.watchFitness = "\uF63E";
+fa.water = "\uF773";
+fa.waterLower = "\uF774";
+fa.waterRise = "\uF775";
+fa.weebly = "\uF5CC";
+fa.weibo = "\uF18A";
+fa.weight = "\uF496";
+fa.weightHanging = "\uF5CD";
+fa.weixin = "\uF1D7";
+fa.whale = "\uF72C";
+fa.whatsapp = "\uF232";
+fa.whatsappSquare = "\uF40C";
+fa.wheat = "\uF72D";
+fa.wheelchair = "\uF193";
+fa.whistle = "\uF460";
+fa.whmcs = "\uF40D";
+fa.wifi = "\uF1EB";
+fa.wifi1 = "\uF6AA";
+fa.wifi2 = "\uF6AB";
+fa.wifiSlash = "\uF6AC";
+fa.wikipediaW = "\uF266";
+fa.wind = "\uF72E";
+fa.windWarning = "\uF776";
+fa.window = "\uF40E";
+fa.windowAlt = "\uF40F";
+fa.windowClose = "\uF410";
+fa.windowMaximize = "\uF2D0";
+fa.windowMinimize = "\uF2D1";
+fa.windowRestore = "\uF2D2";
+fa.windows = "\uF17A";
+fa.windsock = "\uF777";
+fa.wineBottle = "\uF72F";
+fa.wineGlass = "\uF4E3";
+fa.wineGlassAlt = "\uF5CE";
+fa.wix = "\uF5CF";
+fa.wizardsOfTheCoast = "\uF730";
+fa.wolfPackBattalion = "\uF514";
+fa.wonSign = "\uF159";
+fa.wordpress = "\uF19A";
+fa.wordpressSimple = "\uF411";
+fa.wpbeginner = "\uF297";
+fa.wpexplorer = "\uF2DE";
+fa.wpforms = "\uF298";
+fa.wpressr = "\uF3E4";
+fa.wreath = "\uF7E2";
+fa.wrench = "\uF0AD";
+fa.xRay = "\uF497";
+fa.xbox = "\uF412";
+fa.xing = "\uF168";
+fa.xingSquare = "\uF169";
+fa.yCombinator = "\uF23B";
+fa.yahoo = "\uF19E";
+fa.yandex = "\uF413";
+fa.yandexInternational = "\uF414";
+fa.yarn = "\uF7E3";
+fa.yelp = "\uF1E9";
+fa.yenSign = "\uF157";
+fa.yinYang = "\uF6AD";
+fa.yoast = "\uF2B1";
+fa.youtube = "\uF167";
+fa.youtubeSquare = "\uF431";
+fa.zhihu = "\uF63F";
+module.exports = fa;
+
+},{}],"iSNg0":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$64e1 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$64e1.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+const Shimmer = ()=>{
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                    className: "flex justify-start items-center flex-wrap p-3 w-[100%]",
+                    children: [
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                            className: "flex flex-col w-[280px] h-[288px] bg-white my-3 mx-4 ",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "w-[280px] h-[186px] rounded-xl bg-[#f5f6f7]"
+                                }, void 0, false, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 8,
+                                    columnNumber: 21
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "flex w-[70%] h-[18px] my-1 rounded-2xl bg-[#f5f6f7]"
+                                }, void 0, false, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 9,
+                                    columnNumber: 21
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "flex my-1",
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "w-[18px] h-[18px] mr-1 rounded-[50%] bg-[#f5f6f7]"
+                                        }, void 0, false, {
+                                            fileName: "src/Shimmer.js",
+                                            lineNumber: 11,
+                                            columnNumber: 21
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "flex w-[65%] h-[18px] rounded-md bg-[#f5f6f7]"
+                                        }, void 0, false, {
+                                            fileName: "src/Shimmer.js",
+                                            lineNumber: 12,
+                                            columnNumber: 21
+                                        }, undefined)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 10,
+                                    columnNumber: 21
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/Shimmer.js",
+                            lineNumber: 7,
+                            columnNumber: 17
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                            className: "flex flex-col w-[280px] h-[288px] bg-white my-3 mx-4 ",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "w-[280px] h-[186px] rounded-xl bg-[#f5f6f7]"
+                                }, void 0, false, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 17,
+                                    columnNumber: 9
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "flex w-[70%] h-[18px] my-1 rounded-2xl bg-[#f5f6f7]"
+                                }, void 0, false, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 18,
+                                    columnNumber: 9
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "flex my-1",
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "w-[18px] h-[18px] mr-1 rounded-[50%] bg-[#f5f6f7]"
+                                        }, void 0, false, {
+                                            fileName: "src/Shimmer.js",
+                                            lineNumber: 20,
+                                            columnNumber: 11
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "flex w-[65%] h-[18px] rounded-md bg-[#f5f6f7]"
+                                        }, void 0, false, {
+                                            fileName: "src/Shimmer.js",
+                                            lineNumber: 21,
+                                            columnNumber: 11
+                                        }, undefined)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 19,
+                                    columnNumber: 9
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/Shimmer.js",
+                            lineNumber: 16,
+                            columnNumber: 7
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                            className: "flex flex-col w-[280px] h-[288px] bg-white my-3 mx-4 ",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "w-[280px] h-[186px] rounded-xl bg-[#f5f6f7]"
+                                }, void 0, false, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 26,
+                                    columnNumber: 9
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "flex w-[70%] h-[18px] my-1 rounded-2xl bg-[#f5f6f7]"
+                                }, void 0, false, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 27,
+                                    columnNumber: 9
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "flex my-1",
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "w-[18px] h-[18px] mr-1 rounded-[50%] bg-[#f5f6f7]"
+                                        }, void 0, false, {
+                                            fileName: "src/Shimmer.js",
+                                            lineNumber: 29,
+                                            columnNumber: 11
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "flex w-[65%] h-[18px] rounded-md bg-[#f5f6f7]"
+                                        }, void 0, false, {
+                                            fileName: "src/Shimmer.js",
+                                            lineNumber: 30,
+                                            columnNumber: 11
+                                        }, undefined)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 28,
+                                    columnNumber: 9
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/Shimmer.js",
+                            lineNumber: 25,
+                            columnNumber: 7
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                            className: "flex flex-col w-[280px] h-[288px] bg-white my-3 mx-4 ",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "w-[280px] h-[186px] rounded-xl bg-[#f5f6f7]"
+                                }, void 0, false, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 34,
+                                    columnNumber: 9
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "flex w-[70%] h-[18px] my-1 rounded-2xl bg-[#f5f6f7]"
+                                }, void 0, false, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 35,
+                                    columnNumber: 9
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "flex my-1",
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "w-[18px] h-[18px] mr-1 rounded-[50%] bg-[#f5f6f7]"
+                                        }, void 0, false, {
+                                            fileName: "src/Shimmer.js",
+                                            lineNumber: 37,
+                                            columnNumber: 11
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "flex w-[65%] h-[18px] rounded-md bg-[#f5f6f7]"
+                                        }, void 0, false, {
+                                            fileName: "src/Shimmer.js",
+                                            lineNumber: 38,
+                                            columnNumber: 11
+                                        }, undefined)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 36,
+                                    columnNumber: 9
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/Shimmer.js",
+                            lineNumber: 33,
+                            columnNumber: 7
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                            className: "flex flex-col w-[280px] h-[288px] bg-white my-3 mx-4 ",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "w-[280px] h-[186px] rounded-xl bg-[#f5f6f7]"
+                                }, void 0, false, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 42,
+                                    columnNumber: 9
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "flex w-[70%] h-[18px] my-1 rounded-2xl bg-[#f5f6f7]"
+                                }, void 0, false, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 43,
+                                    columnNumber: 9
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "flex my-1",
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "w-[18px] h-[18px] mr-1 rounded-[50%] bg-[#f5f6f7]"
+                                        }, void 0, false, {
+                                            fileName: "src/Shimmer.js",
+                                            lineNumber: 45,
+                                            columnNumber: 11
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "flex w-[65%] h-[18px] rounded-md bg-[#f5f6f7]"
+                                        }, void 0, false, {
+                                            fileName: "src/Shimmer.js",
+                                            lineNumber: 46,
+                                            columnNumber: 11
+                                        }, undefined)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 44,
+                                    columnNumber: 9
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/Shimmer.js",
+                            lineNumber: 41,
+                            columnNumber: 7
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                            className: "flex flex-col w-[280px] h-[288px] bg-white my-3 mx-4 ",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "w-[280px] h-[186px] rounded-xl bg-[#f5f6f7]"
+                                }, void 0, false, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 50,
+                                    columnNumber: 9
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "flex w-[70%] h-[18px] my-1 rounded-2xl bg-[#f5f6f7]"
+                                }, void 0, false, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 51,
+                                    columnNumber: 9
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "flex my-1",
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "w-[18px] h-[18px] mr-1 rounded-[50%] bg-[#f5f6f7]"
+                                        }, void 0, false, {
+                                            fileName: "src/Shimmer.js",
+                                            lineNumber: 53,
+                                            columnNumber: 11
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "flex w-[65%] h-[18px] rounded-md bg-[#f5f6f7]"
+                                        }, void 0, false, {
+                                            fileName: "src/Shimmer.js",
+                                            lineNumber: 54,
+                                            columnNumber: 11
+                                        }, undefined)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 52,
+                                    columnNumber: 9
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/Shimmer.js",
+                            lineNumber: 49,
+                            columnNumber: 7
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                            className: "flex flex-col w-[280px] h-[288px] bg-white my-3 mx-4 ",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "w-[280px] h-[186px] rounded-xl bg-[#f5f6f7]"
+                                }, void 0, false, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 58,
+                                    columnNumber: 9
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "flex w-[70%] h-[18px] my-1 rounded-2xl bg-[#f5f6f7]"
+                                }, void 0, false, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 59,
+                                    columnNumber: 9
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "flex my-1",
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "w-[18px] h-[18px] mr-1 rounded-[50%] bg-[#f5f6f7]"
+                                        }, void 0, false, {
+                                            fileName: "src/Shimmer.js",
+                                            lineNumber: 61,
+                                            columnNumber: 11
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "flex w-[65%] h-[18px] rounded-md bg-[#f5f6f7]"
+                                        }, void 0, false, {
+                                            fileName: "src/Shimmer.js",
+                                            lineNumber: 62,
+                                            columnNumber: 11
+                                        }, undefined)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 60,
+                                    columnNumber: 9
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/Shimmer.js",
+                            lineNumber: 57,
+                            columnNumber: 7
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                            className: "flex flex-col w-[280px] h-[288px] bg-white my-3 mx-4 ",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "w-[280px] h-[186px] rounded-xl bg-[#f5f6f7]"
+                                }, void 0, false, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 66,
+                                    columnNumber: 9
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "flex w-[70%] h-[18px] my-1 rounded-2xl bg-[#f5f6f7]"
+                                }, void 0, false, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 67,
+                                    columnNumber: 9
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "flex my-1",
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "w-[18px] h-[18px] mr-1 rounded-[50%] bg-[#f5f6f7]"
+                                        }, void 0, false, {
+                                            fileName: "src/Shimmer.js",
+                                            lineNumber: 69,
+                                            columnNumber: 11
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "flex w-[65%] h-[18px] rounded-md bg-[#f5f6f7]"
+                                        }, void 0, false, {
+                                            fileName: "src/Shimmer.js",
+                                            lineNumber: 70,
+                                            columnNumber: 11
+                                        }, undefined)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 68,
+                                    columnNumber: 9
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/Shimmer.js",
+                            lineNumber: 65,
+                            columnNumber: 7
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                            className: "flex flex-col w-[280px] h-[288px] bg-white my-3 mx-4 ",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "w-[280px] h-[186px] rounded-xl bg-[#f5f6f7]"
+                                }, void 0, false, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 74,
+                                    columnNumber: 9
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "flex w-[70%] h-[18px] my-1 rounded-2xl bg-[#f5f6f7]"
+                                }, void 0, false, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 75,
+                                    columnNumber: 9
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "flex my-1",
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "w-[18px] h-[18px] mr-1 rounded-[50%] bg-[#f5f6f7]"
+                                        }, void 0, false, {
+                                            fileName: "src/Shimmer.js",
+                                            lineNumber: 77,
+                                            columnNumber: 11
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "flex w-[65%] h-[18px] rounded-md bg-[#f5f6f7]"
+                                        }, void 0, false, {
+                                            fileName: "src/Shimmer.js",
+                                            lineNumber: 78,
+                                            columnNumber: 11
+                                        }, undefined)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 76,
+                                    columnNumber: 9
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/Shimmer.js",
+                            lineNumber: 73,
+                            columnNumber: 7
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                            className: "flex flex-col w-[280px] h-[288px] bg-white my-3 mx-4 ",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "w-[280px] h-[186px] rounded-xl bg-[#f5f6f7]"
+                                }, void 0, false, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 82,
+                                    columnNumber: 9
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "flex w-[70%] h-[18px] my-1 rounded-2xl bg-[#f5f6f7]"
+                                }, void 0, false, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 83,
+                                    columnNumber: 9
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "flex my-1",
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "w-[18px] h-[18px] mr-1 rounded-[50%] bg-[#f5f6f7]"
+                                        }, void 0, false, {
+                                            fileName: "src/Shimmer.js",
+                                            lineNumber: 85,
+                                            columnNumber: 11
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "flex w-[65%] h-[18px] rounded-md bg-[#f5f6f7]"
+                                        }, void 0, false, {
+                                            fileName: "src/Shimmer.js",
+                                            lineNumber: 86,
+                                            columnNumber: 11
+                                        }, undefined)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 84,
+                                    columnNumber: 9
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/Shimmer.js",
+                            lineNumber: 81,
+                            columnNumber: 7
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                            className: "flex flex-col w-[280px] h-[288px] bg-white my-3 mx-4 ",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "w-[280px] h-[186px] rounded-xl bg-[#f5f6f7]"
+                                }, void 0, false, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 90,
+                                    columnNumber: 9
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "flex w-[70%] h-[18px] my-1 rounded-2xl bg-[#f5f6f7]"
+                                }, void 0, false, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 91,
+                                    columnNumber: 9
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "flex my-1",
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "w-[18px] h-[18px] mr-1 rounded-[50%] bg-[#f5f6f7]"
+                                        }, void 0, false, {
+                                            fileName: "src/Shimmer.js",
+                                            lineNumber: 93,
+                                            columnNumber: 11
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "flex w-[65%] h-[18px] rounded-md bg-[#f5f6f7]"
+                                        }, void 0, false, {
+                                            fileName: "src/Shimmer.js",
+                                            lineNumber: 94,
+                                            columnNumber: 11
+                                        }, undefined)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 92,
+                                    columnNumber: 9
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/Shimmer.js",
+                            lineNumber: 89,
+                            columnNumber: 7
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                            className: "flex flex-col w-[280px] h-[288px] bg-white my-3 mx-4 ",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "w-[280px] h-[186px] rounded-xl bg-[#f5f6f7]"
+                                }, void 0, false, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 98,
+                                    columnNumber: 9
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "flex w-[70%] h-[18px] my-1 rounded-2xl bg-[#f5f6f7]"
+                                }, void 0, false, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 99,
+                                    columnNumber: 9
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "flex my-1",
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "w-[18px] h-[18px] mr-1 rounded-[50%] bg-[#f5f6f7]"
+                                        }, void 0, false, {
+                                            fileName: "src/Shimmer.js",
+                                            lineNumber: 101,
+                                            columnNumber: 11
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "flex w-[65%] h-[18px] rounded-md bg-[#f5f6f7]"
+                                        }, void 0, false, {
+                                            fileName: "src/Shimmer.js",
+                                            lineNumber: 102,
+                                            columnNumber: 11
+                                        }, undefined)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/Shimmer.js",
+                                    lineNumber: 100,
+                                    columnNumber: 9
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/Shimmer.js",
+                            lineNumber: 97,
+                            columnNumber: 7
+                        }, undefined)
+                    ]
+                }, void 0, true, {
+                    fileName: "src/Shimmer.js",
+                    lineNumber: 6,
+                    columnNumber: 17
+                }, undefined)
+            }, void 0, false, {
+                fileName: "src/Shimmer.js",
+                lineNumber: 5,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {}, void 0, false, {
+                fileName: "src/Shimmer.js",
+                lineNumber: 107,
+                columnNumber: 13
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/Shimmer.js",
+        lineNumber: 3,
+        columnNumber: 9
+    }, undefined);
+};
+_c = Shimmer;
+exports.default = Shimmer;
+var _c;
+$RefreshReg$(_c, "Shimmer");
+
+  $parcel$ReactRefreshHelpers$64e1.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}]},["gpvlO","1xC6H","igcvL"], "igcvL", "parcelRequire6ef2")
 
 //# sourceMappingURL=index.5baa4167.js.map
